@@ -1,0 +1,19 @@
+.nav-menu hr{
+    width: 80%;
+    background: red;
+    height: 0.2rem;
+    border-radius: 0.8rem;
+    border: none;
+}
+.nav-menu-mobile hr{
+    width: 20%;
+    background: red;
+    height: 0.2rem;
+    border-radius: 0.8rem;
+    border: none;
+}
+.cart-under-hr{
+    background: rgb(85, 85, 85) !important;
+    height: 0.15rem !important ;
+    width: 100% !important ;
+}
