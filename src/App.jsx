@@ -10,6 +10,7 @@ import Login from './Pages/Login'
 import Signup from './Pages/Signup'
 import ProtectedRoute from './Components/ProtectedRoute'
 import Layout from './Components/Layout'
+import OrderStatus from './Components/OrderStatus'
 import men_banner from './Components/Assets/banner_mens.png'
 import women_banner from './Components/Assets/banner_women.png'
 import kids_banner from './Components/Assets/banner_kids.png'
@@ -31,6 +32,7 @@ function App() {
               <Route path="/product/:id" element={<ProductDetails />} />
               <Route path="/login" element={<Login />} />
               <Route path="/signup" element={<Signup />} />
+              <Route path='/order-status' element={<OrderStatus />} />
             </Route>
           </Routes>
        </BrowserRouter>
