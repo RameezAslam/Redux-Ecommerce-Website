@@ -10,6 +10,7 @@ import { logout } from '../../store/authSlice'
 import { Search } from 'lucide-react'
 import SearchBar from '../SearchBar'
 import { useLocation } from 'react-router-dom'
+import toast from 'react-hot-toast'
 
 function Navbar() {
     const [menu, setMenu] = useState("home")
@@ -25,7 +26,7 @@ function Navbar() {
 
     const handleLogout = () => {
         dispatch(logout());
-        alert("Logout successful");
+        toast.success("Logout successful");
     }
 
   return (

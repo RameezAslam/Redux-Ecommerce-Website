@@ -8,6 +8,7 @@ import star_dull from '../Components/Assets/star_dull_icon.png'
 import RelatedProducts from '../Components/RelatedProducts';
 import ProductFeatures from '../Components/ProductFeatures';
 import Breadcrum from '../Components/Breadcrum';
+import toast from 'react-hot-toast';
 
 function ProductDetails() {
   const { id } = useParams()
@@ -23,9 +24,9 @@ function ProductDetails() {
   const handleAddToCart = () => {
      dispatch(addToCart({id: product.id, quantity, selectedSize: selectedSize}));
      if(selectedSize) {
-          alert("Product added to cart")
+          toast.success("Product added to cart")
      } else {
-        alert("Product not added to cart")
+        toast.error("Product not added to cart")
      }  
   }
 

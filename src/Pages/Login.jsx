@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import { login } from '../store/authSlice'
 import { useNavigate } from 'react-router-dom'
 import { FaEye, FaEyeSlash } from 'react-icons/fa'
+import toast from 'react-hot-toast'
 
 function Login() {
   const [email, setEmail] = useState('')
@@ -21,7 +22,7 @@ function Login() {
       }
 
       dispatch(login(userData))
-      alert("Login successful")
+      toast.success("Login successful")
       navigate('/cart')
   }
 

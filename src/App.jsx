@@ -14,12 +14,23 @@ import OrderStatus from './Components/OrderStatus'
 import men_banner from './Components/Assets/banner_mens.png'
 import women_banner from './Components/Assets/banner_women.png'
 import kids_banner from './Components/Assets/banner_kids.png'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
     const [count, setCount] = useState(0)
 
   return (
     <div>
+       <Toaster
+         toastOptions={{
+          style: {
+            fontSize: '16px',
+            padding: '20px 30px',
+            maxWidth: '300px',
+            fontWeight: '600'
+          },
+  }}
+       position="top-right" reverseOrder={false} />
        <BrowserRouter>
           <Routes>
             <Route path="/" element={<Layout />} >

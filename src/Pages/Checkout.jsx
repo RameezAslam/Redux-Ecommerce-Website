@@ -5,6 +5,7 @@ import paypal from "../Components/Assets/Paypal.png";
 import cod from "../Components/Assets/COD.png";
 import { Link, useNavigate } from 'react-router-dom';
 import { clearCart } from '../store/cartSlice';
+import toast from 'react-hot-toast';
 
 function Checkout() {
   const cartItems = useSelector((state) => state.cart.cartItems);
@@ -15,7 +16,6 @@ function Checkout() {
   const [paymentMethod, setPaymentMethod] = useState("");
   const [showPopup, setShowPopup] = useState(false);
   const [paymentInfo, setPaymentInfo] = useState({});
-
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -27,6 +27,7 @@ function Checkout() {
     email: ""
   });
   const [submitted, setSubmitted] = useState(false);
+  const [showPaymentError, setShowPaymentError] = useState(false);
 
   const shippingRates = {
     punjab: 10,
@@ -70,16 +71,20 @@ function Checkout() {
 
   const handlePlaceOrder = (e) => {
     e.preventDefault();
-    if (!paymentMethod) return alert("Please select a payment method");
-    if ((paymentMethod === 'paypal' || paymentMethod === 'bank') && !Object.values(paymentInfo).every(Boolean)) {
-      return alert("Please fill out the payment form");
-    }
-    if (validateForm()) {
-      alert("Your order has been placed")
-      navigate("/order-status");
-      dispatch(clearCart());
-    }
-  setSubmitted(true);
+    setSubmitted(true);
+    let isFormValid = validateForm();
+    let isPaymentSelected = !!paymentMethod;
+    let isPaymentInfoValid =
+      paymentMethod === 'cash' ||
+      ((paymentMethod === 'paypal' || paymentMethod === 'bank') && Object.values(paymentInfo).every(Boolean));
+
+    if (!isFormValid) return;
+    if (!isPaymentSelected) return toast.error("Please select a payment method")
+    if (!isPaymentInfoValid) return toast.error("Please fill out the payment form")
+
+    toast.success("Your order has been placed");
+    navigate("/order-status");
+    dispatch(clearCart());
   };
 
   const openPaymentForm = (method) => {
@@ -184,7 +189,7 @@ function Checkout() {
           </form>         
         </div>
 
-        <div className='flex flex-col gap-4'>
+          <div className='flex flex-col gap-4'>
           <div className='flex flex-col gap-4 border border-gray-200 p-8 rounded-md'>
             <div className='flex justify-between'><p className='text-gray-600 font-semibold'>Subtotal:</p><p className='text-gray-700 font-semibold'>${subTotal}</p></div>
             <div className='flex justify-between'><p className='text-gray-600 font-semibold'>Shipping:</p><p className='text-gray-600 font-semibold'>{shipping ? `$${shipping}` : "Select Province"}</p></div>
@@ -193,9 +198,9 @@ function Checkout() {
             <div className='flex flex-col gap-1'>
               <div className='font-semibold mb-4'>Select Payment Method</div>
               <div className='flex justify-between'>
-                <img className='w-20 cursor-pointer' onClick={() => openPaymentForm("bank")} src={bank_logo} alt="bank-logo" />
-                <img className='w-20 cursor-pointer' onClick={() => openPaymentForm("paypal")} src={paypal} alt="paypal-logo" />
-                <img className='w-20 cursor-pointer' onClick={() => openPaymentForm("cash")} src={cod} alt="cod-logo" />
+                <img className={`w-20 cursor-pointer border-2 rounded-md ${paymentMethod === "bank" ? "border-blue-500" : "border-transparent"}`} onClick={() => openPaymentForm("bank")} src={bank_logo} alt="bank-logo" />
+                <img className={`w-20 cursor-pointer border-2 rounded-md ${paymentMethod === "paypal" ? "border-blue-500" : "border-transparent"}`} onClick={() => openPaymentForm("paypal")} src={paypal} alt="paypal-logo" />
+                <img className={`w-20 cursor-pointer border-2 rounded-md ${paymentMethod === "cash" ? "border-blue-500" : "border-transparent"}`} onClick={() => openPaymentForm("cash")} src={cod} alt="cod-logo" />
               </div>
             </div>
             <Link to='/cart'>

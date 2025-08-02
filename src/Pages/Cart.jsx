@@ -7,6 +7,7 @@ import { Plus, Minus } from 'lucide-react';
 import { useDispatch } from 'react-redux';
 import { updateCartQuantity , removeFromCart } from '../store/cartSlice';
 import YouMayLike from '../Components/YouMayLike';
+import toast from 'react-hot-toast';
 
 function Cart() {
   const { id } = useParams();
@@ -18,12 +19,12 @@ function Cart() {
     if (newQuantity < 1) return; // Prevent quantity from going below 1
     setUpdateQuantity(newQuantity);
     dispatch(updateCartQuantity({ id, quantity: newQuantity }));
-    alert("Quantity updated successfully");
+    toast.success("Quantity updated successfully");
   };
 
   const handleRemoveFromCart = (id , quantity) => {
     dispatch(removeFromCart(id , quantity));
-    alert("Product removed from cart");
+    toast.error("Product removed from cart");
   };
 
   return (

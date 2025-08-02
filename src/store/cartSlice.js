@@ -1,6 +1,7 @@
 import React from 'react';
 import { createSlice } from '@reduxjs/toolkit';
 import all_products from '../Components/Assets/all_product.js';
+import toast from 'react-hot-toast';
 
 const initialState = {
     cartItems: localStorage.getItem('cartItems') ? JSON.parse(localStorage.getItem('cartItems')) : []
@@ -15,7 +16,7 @@ const cartSlice = createSlice({
             const product = all_products.find(p => p.id === id);
 
               if (!selectedSize) {
-                alert("Please select a size before adding to cart.");
+                toast.error("Please select a size before adding to cart.")
                 return;
               }
 
