@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import bank_logo from "../Components/Assets/bank.png";
-import paypal from "../Components/Assets/Paypal.png";
+import paypal from "../Components/Assets/paypal.png";
 import cod from "../Components/Assets/COD.png";
 import { Link, useNavigate } from 'react-router-dom';
 import { clearCart } from '../store/cartSlice';
